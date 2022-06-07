@@ -1,0 +1,50 @@
+@mixin text-stroke($stroke, $color) {
+  text-shadow: functions.stroke($stroke, $color);
+
+  /*@supports((text-stroke: #{$stroke}px #{$color}) or (-webkit-text-stroke: #{$stroke}px #{$color})) {
+    color: transparent;
+    -webkit-text-stroke: #{$stroke}px $color;
+    text-stroke: #{$stroke}px $color;
+    text-shadow: none;
+  }*/
+}
+
+@mixin font-face(
+  $name,
+  $path,
+  $weight: null,
+  $style: null,
+  $exts: eot woff2 woff ttf svg
+) {
+  $src: null;
+  $extmods: (
+    eot: '?',
+    svg: '#' + str-replace($name, ' ', '_')
+  );
+
+  $formats: (
+    otf: 'opentype',
+    ttf: 'truetype'
+  );
+
+  @each $ext in $exts {
+    $extmod: if(
+      map-has-key($extmods, $ext),
+      $ext + map-get($extmods, $ext),
+      $ext
+    );
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append(
+      $src,
+      url(quote($path + '.' + $extmod)) format(quote($format)),
+      comma
+    );
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}

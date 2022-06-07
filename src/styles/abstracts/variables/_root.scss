@@ -1,0 +1,14 @@
+@use '../functions' as *;
+@use '../variables' as *;
+
+:root {
+  --accent: linear-gradient(
+    26.57deg,
+    hsl(28, 100%, 79%) 0.42%,
+    hsl(329, 36%, 59%) 43.46%,
+    hsl(229, 100%, 67%) 83.33%
+  );
+  --white: hsl(0, 0%, 100%);
+  --gray: hsl(0, 0%, 87%);
+  --black: hsl(0, 0%, 0%);
+}

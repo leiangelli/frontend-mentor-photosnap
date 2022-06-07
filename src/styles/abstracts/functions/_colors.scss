@@ -1,0 +1,20 @@
+@use 'sass:color';
+@use 'sass:math';
+
+/**
+  * toRgb(#000) => 0,0,0
+    only works inside :root {}
+
+    EXAMPLE: 
+    :root {
+      --test: #{toRgb(#000)}
+    }
+
+    body {
+      color: rgb(var(--test));
+    }
+ */
+@function toRgb($hex) {
+  @return math.round(color.red($hex)), math.round(color.green($hex)),
+    math.round(color.blue($hex));
+}

@@ -1,0 +1,52 @@
+@mixin position(
+  $type,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null,
+  $extra: null
+) {
+  @if $extra ==false {
+    position: $type;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  } @else if $extra == 'important' {
+    position: $type !important;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
+}
+
+@mixin absolute(
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null,
+  $extra: false
+) {
+  @include position(absolute, $top, $right, $bottom, $left, $extra);
+}
+
+@mixin relative(
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null,
+  $extra: false
+) {
+  @include position(relative, $top, $right, $bottom, $left, $extra);
+}
+
+@mixin fixed(
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null,
+  $extra: false
+) {
+  @include position(fixed, $top, $right, $bottom, $left, $extra);
+}
