@@ -12,25 +12,21 @@
 
   ==> shows div if operating system used is IOS
   <div v-if="device.os.name === 'macintosh'"></div>
+
+  TODO: 
+    add debounce for event listener resize
  *
  */
 
 // imports
 import { ref } from 'vue'
 import { useEventListener } from './event-listener'
-import { useMedia } from './use-media'
 
 // variables
 const html = document.querySelector('html')
 const width = ref<number>(0)
 const height = ref<number>(0)
-
-const header = [
-  navigator?.platform,
-  navigator?.userAgent,
-  navigator?.appVersion,
-  navigator?.vendor
-].join(' ')
+const breakpoint = ref<string>('')
 
 const osList = [
   { name: 'Windows Phone', value: 'Windows Phone', version: 'OS' },
@@ -109,22 +105,21 @@ function deviceType () {
   return 'pc'
 }
 
-export function handleHoverStates () {
-  const canHover = !useMedia('(hover: none)').value
-  const browser = generateDeviceInfo(header, browserList)
-
-  if (html) {
-    if (browser?.name !== 'MSIE') {
-      html.classList.add('browser-not-ie')
-    }  
-
-    if (canHover) {
-      html.classList.add('hoverable')
-    } else {
-      html.classList.remove('hoverable')
-    }
+function deviceBreakpoint () {
+  if (!html) {
+    breakpoint.value = ''
+    return
   }
+
+  breakpoint.value = window.getComputedStyle(html, ':before')
+    .getPropertyValue('content')
+    .replace(/['"]/g, '')
 }
+
+const header = [
+  navigator?.userAgent,
+  navigator?.vendor
+].join(' ')
 
 export function deviceInfo () {
   const os = generateDeviceInfo(header, osList)
@@ -132,17 +127,18 @@ export function deviceInfo () {
 
   useEventListener(window, 'resize', (event: Event) => {
     generateDimensions(event)
+    deviceBreakpoint()
   })
 
   generateDimensions(window)
-
-  const device = {
-    os,
-    browser,
-    width: width,
-    height: height,
-    type: deviceType()
-  }
+  deviceBreakpoint()
     
-  return device
+  return {
+    os,
+    browser,  
+    width,
+    height,
+    type: deviceType(),
+    breakpoint
+  }
 }

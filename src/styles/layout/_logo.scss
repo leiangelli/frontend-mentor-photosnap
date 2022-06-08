@@ -1,0 +1,18 @@
+@use '../abstracts' as *;
+
+.logo {
+  @include wh(170px, 16px);
+  background: {
+    image: url(../assets/images/shared/desktop/logo.svg);
+    repeat: no-repeat;
+    size: contain;
+    position: center center;
+  }
+  text-indent: -999px;
+  grid-column: 2 / span 2;
+  justify-self: start;
+
+  @include mq(768px) {
+    grid-column: 2;
+  }
+}

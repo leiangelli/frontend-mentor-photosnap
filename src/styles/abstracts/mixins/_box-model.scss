@@ -1,4 +1,9 @@
 @mixin wh($width: null, $height: null) {
-  width: $width;
-  height: $height;
+  @if $width != null {
+    width: $width;
+  }
+
+  @if $height != null {
+    height: $height;
+  }
 }

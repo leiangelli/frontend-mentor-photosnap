@@ -1,7 +1,16 @@
 @use '../functions' as *;
 @use '../variables' as *;
+@use '../mixins' as *;
 
 :root {
+  // grid
+  --layout-gap: 24px;
+
+  @include mq(768px) {
+    --layout-gap: 39px;
+  }
+
+  // colors
   --accent: linear-gradient(
     26.57deg,
     hsl(28, 100%, 79%) 0.42%,

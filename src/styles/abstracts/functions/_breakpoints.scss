@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use '../variables/' as *;
+
+@function getBreakpoint($target) {
+  $targetExist: map.has-key($breakpoints, $target);
+
+  @if $targetExist == false {
+    @error 'Invalid Breakpoint';
+  }
+
+  @return map.get($breakpoints, $target);
+}
+
+@function validBreakpoint($value) {
+  $hasUnit: str-index(#{$value}, 'px') or str-index(#{$value}, 'em') or
+    str-index(#{$value}, 'cm') or str-index(#{$value}, 'in') or
+    str-index(#{$value}, 'ex') or str-index(#{$value}, 'pt') or
+    str-index(#{$value}, 'pc');
+
+  @if $hasUnit == null {
+    @error '#{value} needs to have a unit. (px, em, cm, in, ex, pt, pc)';
+  }
+
+  @return $value;
+}

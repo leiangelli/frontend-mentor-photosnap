@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+button {
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.is-pc {
+  @include mq(991px, max-width) {
+    display: none !important;
+  }
+}
+
+.is-mb {
+  @include mq(992px) {
+    display: none !important;
+  }
+}
+
+.l-inner {
+  display: grid;
+  grid-template-columns: var(--layout-gap) repeat(4, 1fr) var(--layout-gap);
+  margin: 0 auto;
+  width: min(calc(1110px + (var(--layout-gap) * 2)), 100%);
+}

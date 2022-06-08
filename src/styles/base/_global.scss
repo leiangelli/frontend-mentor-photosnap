@@ -1,4 +1,4 @@
-@use '../abstracts/variables/' as *;
+@use '../abstracts' as *;
 
 * {
   margin: 0;
@@ -14,10 +14,23 @@
 
 html {
   height: 100%;
+
+  /**
+    * generates defined $breakpoints as content value
+    * to share values to javascript
+    */
+  &:before {
+    display: none;
+
+    @each $bpKey, $bpValue in $breakpoints {
+      @include mq($bpKey) {
+        content: '#{$bpKey}';
+      }
+    }
+  }
 }
 
 body {
-  background: var(--white);
   display: flex;
   flex-direction: column;
   font: {

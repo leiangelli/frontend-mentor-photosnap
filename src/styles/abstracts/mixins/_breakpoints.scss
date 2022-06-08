@@ -1,14 +1,20 @@
+@use 'sass:map';
+@use 'sass:string';
 @use '../functions' as *;
+@use '../variables/breakpoints' as *;
 
 /**
- * EXAMPLES:
+ * Description:
+    mq(992px) {}
+    mq(991px, 'max-width') {}
+    mq((992px, 800px, 'width') {}
+    mq((992px, 800px, 'min-width, min-height') {}
+    mq((992px, 800px, 'max-width, max-height') {}
+    mq(tablet) {}
+    mq(tablet, max-width) {}
  *
- * mq(992px) {}
- * mq(991px, 'max-width') {}
- * mq((992px, 800px, 'width') {}
- * mq((992px, 800px, 'min-width, min-height') {}
- * mq((992px, 800px, 'max-width, max-height') {}
  */
+
 @mixin mq($breakpoint, $extra: '') {
   $ext: str-replace($extra, ' ');
   $extensions: if($ext, str-split($ext, ','), false);
@@ -21,51 +27,79 @@
   $type1: '';
   $type2: '';
 
+  $value1: nth($breakpoint, 1);
   @if length($breakpoint) == 2 {
-    $value1: nth($breakpoint, 1);
     $value2: nth($breakpoint, 2);
-  } @else {
-    $value1: nth($breakpoint, 1);
   }
 
+  $type1: nth($extensions, 1);
   @if length($extensions) == 2 {
-    $type1: nth($extensions, 1);
     $type2: nth($extensions, 2);
-  } @else {
-    $type1: nth($extensions, 1);
   }
 
-  $temp: ('min-width', 'min-height', 'max-width', 'max-height');
-
-  @if (
-      str-contains($temp, $type1) != true or str-contains($temp, $type2) !=true
-    ) and
-    length($extensions)
-    ==2
-  {
-    @error 'Invalid breakpoint #{$extra}';
-  }
-
-  @if $value1 and $value2 == '' {
-    @if $type1 == '' or $type1 == 'width' or $type1 == 'min-width' {
-      $query: 'only screen and (min-width: #{$value1})';
-    } @else if $type1 == 'max-width' {
-      $query: 'only screen and (max-width: #{$value1})';
-    } @else if $type1 == 'min-height' {
-      $query: 'only screen and (min-height: #{$value1})';
-    } @else if $type1 == 'max-height' {
-      $query: 'only screen and (max-height: #{$value1})';
-    } @else {
-      @error 'Invalid Breakpoint => #{$type1}';
-    }
-  } @else if $value1 and $value2 {
+  @if ($type1 == '' and $type2 == '') {
     @if $type1 == '' or $type1 == 'width' {
-      $query: 'only screen and (min-width: #{$value1}) and (max-width: #{$value2})';
+      $type1: 'min-width';
+      $type2: 'max-width';
     } @else if $type1 == 'height' {
-      $query: 'only screen and (min-height: #{$value1}) and (max-height: #{$value2})';
-    } @else {
-      $query: 'only screen and (#{$type1}: #{$value1}) and (#{$type2}: #{$value2})';
+      $type1: 'min-height';
+      $type2: 'max-height';
     }
+  }
+
+  $media: ('min-width', 'min-height', 'max-width', 'max-height');
+  $checkMedia: str-contains($media, $type1) != true or
+    str-contains($media, $type2) != true;
+
+  // checks if $extra is in $media list
+  @if $checkMedia and length($extensions) == 2 {
+    @error 'Invalid breakpoint => #{$extra}';
+  }
+
+  /**
+   * @if $value1 is string
+   * checks if $value1 exists in $breakpoints list
+   *
+   * @if type has "max" 1 is deducted to the value returned
+   */
+  @if $value1 != '' and type-of($value1) == string {
+    $hasMax1: string.index(#{$type1}, 'max');
+
+    $value1: if(
+      $hasMax1 != null,
+      #{calc(getBreakpoint($value1) - 1px)},
+      #{getBreakpoint($value1)}
+    );
+  }
+
+  /**
+   * @if $value2 is string
+   * checks if $value2 exists in $breakpoints list
+   *
+   * @if type has "max" 1 is deducted to the value returned
+   */
+  @if $value2 != '' and type-of($value2) == string {
+    $hasMax2: string.index(#{$type2}, 'max');
+
+    $value2: if(
+      $hasMax2 != null,
+      #{calc(getBreakpoint($value2) - 1px)},
+      #{getBreakpoint($value2)}
+    );
+  }
+
+  @if type-of($value1) == number {
+    $value1: validBreakpoint($value1);
+  }
+
+  @if type-of($value2) == number {
+    $value2: validBreakpoint($value2);
+  }
+
+  @if $value1 != '' and $value2 == '' {
+    $query: 'only screen and (#{$type1}: #{$value1})';
+  } @else if $value1 != '' and $value2 != '' {
+    $query: 'only screen and (#{$type1}: #{$value1}) and (#{$type2}: #{$value2})';
   }
 
   @media #{$query} {

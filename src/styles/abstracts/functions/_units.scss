@@ -1,10 +1,11 @@
 @use 'sass:math';
+@use 'sass:map';
 @use '../variables/' as *;
 
 @function em($value, $base: $BASE_FONTSIZE) {
   $value: math.div($value, $base) * 1em;
 
-  @if $value ==0rem {
+  @if $value == 0rem {
     $value: 0;
   }
 
@@ -14,7 +15,7 @@
 @function rem($value, $base: $BASE_FONTSIZE) {
   $value: math.div($value, $base) * 1rem;
 
-  @if $value ==0rem {
+  @if $value == 0rem {
     $value: 0;
   }
 

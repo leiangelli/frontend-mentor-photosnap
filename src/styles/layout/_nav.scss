@@ -1,0 +1,24 @@
+@use '../abstracts' as *;
+
+nav {
+  grid-column: 2 / span 4;
+  display: none;
+
+  @include mq(768px) {
+    grid-column: 3 / span 2;
+    display: grid;
+  }
+}
+
+.nav-list {
+  display: grid;
+  font-size: em(12px);
+  gap: 20px;
+  list-style: none;
+  text-transform: uppercase;
+
+  @include mq(768px) {
+    grid-auto-flow: column;
+    gap: 37px;
+  }
+}

@@ -1,3 +1,5 @@
+@use 'sass:string';
+
 @function stroke($stroke, $color) {
   $shadow: ();
   $from: $stroke * -1;
@@ -17,6 +19,7 @@
 @function str-split($string, $separator) {
   $split-arr: ();
   $index: str-index($string, $separator);
+  $indexLength: string.length(#{$separator});
 
   @while $index !=null {
     $item: str-slice($string, 1, $index - 1);

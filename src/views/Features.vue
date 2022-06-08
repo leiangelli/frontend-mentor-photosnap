@@ -1,3 +1,3 @@
-<template>about</template>
+<template>features</template>
 
 <script setup lang="ts"></script>

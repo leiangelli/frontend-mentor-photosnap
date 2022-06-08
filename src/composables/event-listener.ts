@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, onBeforeUnmount, unref } from 'vue'
 
-export function useEventListener(
+export function useEventListener (
   target: any,
   event: any,
   handler: (e: Event) => any

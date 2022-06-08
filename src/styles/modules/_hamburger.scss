@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+.hamburger {
+  @include wh(20px, 6px);
+  display: flex;
+  flex-direction: column;
+  grid-column: 5;
+  justify-content: space-between;
+  margin-left: auto;
+
+  span {
+    @include wh(100%, 1px);
+    background-color: var(--black);
+  }
+}
