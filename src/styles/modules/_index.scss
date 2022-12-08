@@ -1,3 +1,6 @@
+@use '../abstracts' as *;
+
 @forward 'hamburger';
 @forward 'hero';
-@forward 'feature';
+@forward 'highlights';
+@forward 'story';

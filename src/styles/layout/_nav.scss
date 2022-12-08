@@ -12,13 +12,25 @@ nav {
 
 .nav-list {
   display: grid;
-  font-size: em(12px);
+  font: {
+    size: em(12px);
+    weight: 700;
+  }
   gap: 20px;
+  letter-spacing: 2px;
   list-style: none;
   text-transform: uppercase;
 
   @include mq(768px) {
     grid-auto-flow: column;
     gap: 37px;
+  }
+
+  li {
+    transition: color 0.15s ease;
+
+    @include hover {
+      color: var(--gray);
+    }
   }
 }

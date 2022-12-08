@@ -4,6 +4,7 @@ import { defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
 
 import Header from '@/components/layout/Header'
+import Footer from './components/layout/Footer'
 
 export default defineComponent({
   setup () {
@@ -13,6 +14,8 @@ export default defineComponent({
           <Header />
 
           <RouterView />
+
+          <Footer />
         </div>
       )
     }

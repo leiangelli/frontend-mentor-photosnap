@@ -1,0 +1,42 @@
+@use '../abstracts' as *;
+
+.footer {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 56px 0;
+
+  @include mq(tablet) {
+    padding: 64px 0;
+  }
+
+  .btn {
+    grid-column-start: 5;
+  }
+
+  .l-inner {
+    align-items: start;
+  }
+}
+
+.sitemap {
+  grid-column-start: 3;
+  list-style-type: none;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+.socials {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  list-style-type: none;
+  display: flex;
+  gap: 13px;
+
+  img {
+    filter: invert(0) brightness(10000%) contrast(0);
+  }
+}

@@ -86,5 +86,25 @@ export const useStoriesStore = defineStore({
         author: 'William Malcolm'
       }
     ]
-  })
+  }),
+
+  getters: {
+    list: state => {
+      const stories = state.stories.map(item => {
+        return {
+          img: item.title
+            .replace(/ /g, '-')
+            .replace(/ /g, '')
+            .toLowerCase(),
+          ...item
+        }
+      })
+
+      return stories
+    },
+
+    featuredList () {
+      return JSON.parse(JSON.stringify(this.list)).splice(0, 4)
+    }
+  }
 })

@@ -1,0 +1,44 @@
+@use '@/styles/abstracts' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 2px;
+  font: {
+    size: 12px;
+    weight: 700;
+  }
+
+  &.is-full {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  &.bg-black {
+    background-color: var(--black);
+    color: var(--white);
+
+    @include hover {
+      background-color: var(--gray);
+      color: var(--black);
+    }
+  }
+}
+
+.btn-default {
+  padding: 12px 24px;
+}
+
+.btn-arrow {
+  gap: 26px;
+
+  @include hover {
+    text-decoration: underline;
+  }
+
+  &.is-white {
+    img {
+      filter: invert(100%);
+    }
+  }
+}

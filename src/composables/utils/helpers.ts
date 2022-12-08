@@ -3,6 +3,8 @@ export function toKebabCase (str = '') {
     .replace(/[^a-z]/gi, '-')
     .replace(/\B([A-Z])/g, '-$1')
     .toLowerCase()
+    .replace(/--/, '-')
+    
 }
 
 export function isObject (data:any) {
@@ -12,7 +14,7 @@ export function isObject (data:any) {
     data !== undefined
 }
 
-export const replaceChar = (str:string, find = '[-_\\\/]', value = '') => str && str.replace(new RegExp(find, 'g'), value)
+export const replaceChar = (str:string, find = '[-_\\/]', value = '') => str && str.replace(new RegExp(find, 'g'), value)
 
 export const isEmpty = (data:any) => {
   if (isObject(data)) {
@@ -22,6 +24,4 @@ export const isEmpty = (data:any) => {
   return data.length === 0
 }
 
-export const getImageUrl = (name:string) => {
-  return new URL(`../../assets/${name}`, import.meta.url).href
-}
+export const getImageUrl = (name:string) => new URL(`../../assets/${name}`, import.meta.url).href

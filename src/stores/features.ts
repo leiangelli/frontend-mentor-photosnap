@@ -4,7 +4,7 @@ export const useFeaturesStore = defineStore({
   id: 'features',
 
   state: () => ({
-    features: [
+    list: [
       {
         icon: 'responsive',
         title: '100% Responsive',
@@ -36,5 +36,9 @@ export const useFeaturesStore = defineStore({
         content: 'Easily drag and drop your image and get beautiful shots everytime. No over the top tooling to add friction to creating stories.'
       }
     ]
-  })
+  }),
+
+  getters: {
+    featuredList: state => JSON.parse(JSON.stringify(state.list)).splice(0, 3) 
+  }
 })

@@ -65,6 +65,9 @@
   @if $value1 != '' and type-of($value1) == string {
     $hasMax1: string.index(#{$type1}, 'max');
 
+    // @debug 'Invalid breakpoint => #{getBreakpoint($value1)}';
+    // @debug 'Invalid breakpoint => #{calc(getBreakpoint($value1) - 1px)}';
+
     $value1: if(
       $hasMax1 != null,
       #{calc(getBreakpoint($value1) - 1px)},

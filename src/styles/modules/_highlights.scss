@@ -1,9 +1,7 @@
 @use 'sass:map';
 @use '../abstracts' as *;
 
-$features: ('create', 'stories', 'everyone');
-
-.feature {
+.highlights {
   display: flex;
   flex-direction: column;
 
@@ -12,13 +10,13 @@ $features: ('create', 'stories', 'everyone');
   }
 
   &:nth-child(even) {
-    .feature__desc {
+    .highlights__desc {
       @include mq(tablet) {
         order: 2;
       }
     }
 
-    .feature__img {
+    .highlights__img {
       @include mq(tablet) {
         order: 1;
       }
@@ -26,7 +24,7 @@ $features: ('create', 'stories', 'everyone');
   }
 }
 
-.feature__desc {
+.highlights__desc {
   order: 2;
   padding: 72px 24px;
   position: relative;
@@ -90,7 +88,7 @@ $features: ('create', 'stories', 'everyone');
   }
 }
 
-.feature__img {
+.highlights__img {
   @include wh(100%, 294px);
   order: 1;
 
