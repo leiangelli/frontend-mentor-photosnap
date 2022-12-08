@@ -65,6 +65,10 @@ export default defineComponent({
             >
               GET AN INVITE
             </Button>
+
+            <p>
+              Copyright 2019. All Rights Reserved
+            </p>
           </div>
         </div>
       )
